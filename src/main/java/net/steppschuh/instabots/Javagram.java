@@ -1,13 +1,16 @@
 package net.steppschuh.instabots;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.chrome.ChromeDriver;
 import net.steppschuh.instabots.pages.LogInPage;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.logging.*;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Javagram {
 
@@ -37,12 +40,14 @@ public class Javagram {
         WebDriverManager.chromedriver().setup();
         ChromeDriver chromeDriver = new ChromeDriver();
 
-        //chromeDriver.get(InstagramPage.HOME);
-
-        LogInPage logInPage = new LogInPage(chromeDriver);
-        String user = properties.getProperty("INSTAGRAM_USER");
-        String password = properties.getProperty("INSTAGRAM_PASSWORD");
-        logInPage.logIn(user, password);
+        try {
+            LogInPage logInPage = new LogInPage(chromeDriver);
+            String user = properties.getProperty("INSTAGRAM_USER");
+            String password = properties.getProperty("INSTAGRAM_PASSWORD");
+            logInPage.logIn(user, password);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+        }
 
         chromeDriver.quit();
     }
