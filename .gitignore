@@ -1,4 +1,10 @@
 ##########
+# Project related
+##########
+
+src/main/resources/javagram.properties
+
+##########
 # Java
 ##########
 
