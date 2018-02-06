@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/javagram.iml" filepath="$PROJECT_DIR$/.idea/modules/javagram.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/javagram_main.iml" filepath="$PROJECT_DIR$/.idea/modules/javagram_main.iml" group="javagram" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/javagram_test.iml" filepath="$PROJECT_DIR$/.idea/modules/javagram_test.iml" group="javagram" />
+    </modules>
+  </component>
+</project>
