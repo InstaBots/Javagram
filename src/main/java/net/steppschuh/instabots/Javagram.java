@@ -16,6 +16,8 @@ public class Javagram {
 
     public static final Logger LOGGER = Logger.getLogger(Javagram.class.getName());
 
+    private static final String PROPERTIES_FILE_NAME = "javagram.properties";
+
     private static Javagram instance;
 
     private Properties properties;
@@ -53,9 +55,13 @@ public class Javagram {
     }
 
     private Properties loadProperties() {
-        InputStream in = getClass().getClassLoader().getResourceAsStream("javagram.properties");
         Properties properties = new Properties();
         try {
+            InputStream in = getClass().getClassLoader().getResourceAsStream(PROPERTIES_FILE_NAME);
+            if (in == null) {
+                throw new IOException("Properties file not found at 'src/main/resources"
+                        + PROPERTIES_FILE_NAME + "'. Please refer to the documentation.");
+            }
             properties.load(in);
         } catch (IOException e) {
             LOGGER.log(Level.WARNING, "Unable to load properties", e);
