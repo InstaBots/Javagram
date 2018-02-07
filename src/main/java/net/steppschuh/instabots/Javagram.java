@@ -1,6 +1,7 @@
 package net.steppschuh.instabots;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import net.steppschuh.instabots.pages.ExplorePage;
 import net.steppschuh.instabots.pages.LogInPage;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -24,7 +25,7 @@ public class Javagram {
 
     private Javagram() {
         setupLogging();
-        properties = loadProperties();
+        setupProperties();
     }
 
     public static Javagram getInstance() {
@@ -47,6 +48,8 @@ public class Javagram {
             String user = properties.getProperty("INSTAGRAM_USER");
             String password = properties.getProperty("INSTAGRAM_PASSWORD");
             logInPage.logIn(user, password);
+
+            ExplorePage explorePage = new ExplorePage(chromeDriver, "natgeo");
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
@@ -54,19 +57,18 @@ public class Javagram {
         chromeDriver.quit();
     }
 
-    private Properties loadProperties() {
-        Properties properties = new Properties();
+    private void setupProperties() {
+        properties = new Properties();
         try {
             InputStream in = getClass().getClassLoader().getResourceAsStream(PROPERTIES_FILE_NAME);
             if (in == null) {
-                throw new IOException("Properties file not found at 'src/main/resources"
+                throw new IOException("Properties file not found at 'src/main/resources/"
                         + PROPERTIES_FILE_NAME + "'. Please refer to the documentation.");
             }
             properties.load(in);
         } catch (IOException e) {
-            LOGGER.log(Level.WARNING, "Unable to load properties", e);
+            throw new RuntimeException("Unable to load properties", e);
         }
-        return properties;
     }
 
     private void setupLogging() {
