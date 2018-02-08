@@ -50,6 +50,7 @@ public class Javagram {
             logInPage.logIn(user, password);
 
             ExplorePage explorePage = new ExplorePage(chromeDriver, "natgeo");
+            explorePage.load();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }

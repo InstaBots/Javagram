@@ -11,7 +11,7 @@ public abstract class InstagramPage {
 
     public static final Logger LOGGER = Javagram.LOGGER;
     public static final long TIMEOUT_DURATION_DEFAULT = TimeUnit.SECONDS.toMillis(10);
-    public static final String HOME_URL = "https://www.instagram.com";
+    public static final String HOME_URL = "https://www.instagram.com/";
 
     protected ChromeDriver chromeDriver;
 

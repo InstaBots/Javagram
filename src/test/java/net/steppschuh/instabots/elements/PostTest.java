@@ -1,11 +1,11 @@
 package net.steppschuh.instabots.elements;
 
+import net.steppschuh.instabots.pages.PostPage;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import static org.junit.Assert.*;
 
@@ -18,7 +18,7 @@ public class PostTest {
     public void getPostIdFromUrl_validUrl_correctId() throws Exception {
         String url = "https://www.instagram.com/p/BekncLgn3AQ/?tagged=natgeo";
         String expectedId = "BekncLgn3AQ";
-        String actualId = Post.getPostIdFromUrl(url);
+        String actualId = PostPage.getPostIdFromUrl(url);
         assertEquals(expectedId, actualId);
     }
 
@@ -26,7 +26,7 @@ public class PostTest {
     public void getPostIdFromUrl_invalidUrl_throwsException() throws Exception {
         String url = "https://www.instagram.com/explore/tags/natgeo/";
         try {
-            Post.getPostIdFromUrl(url);
+            PostPage.getPostIdFromUrl(url);
             fail("Expected exception not thrown");
         } catch (IllegalArgumentException e) {
             // expected
@@ -42,7 +42,7 @@ public class PostTest {
                 "···\n" +
                 "“ ...\n" +
                 "...\n" +
-                "\uD83D\uDCF8#dogu_people\n" +
+                "\uD83D\uDCF8#dogu_people " +
                 "\uD83D\uDCF8#humanity_shot_\n" +
                 "#photography \n" +
                 "#fotorgaffdiyarim";

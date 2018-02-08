@@ -1,5 +1,6 @@
 package net.steppschuh.instabots.elements;
 
+import net.steppschuh.instabots.pages.InstagramPage;
 import net.steppschuh.instabots.utils.ParserUtil;
 import org.openqa.selenium.WebElement;
 
@@ -15,35 +16,16 @@ import java.util.regex.Pattern;
  */
 public class Post extends InstagramElement {
 
-    //private static final Pattern TAG_PATTERN = Pattern.compile("(?:^|\\s|[\\p{Punct}&&[^/]])(#[\\p{L}0-9-_]+)");
     private static final Pattern TAG_PATTERN = Pattern.compile("[##]+([A-Za-z0-9-_]+)");
 
-    protected String id;
-    protected String imageUrl;
-    protected String title;
-    protected int likesCount;
-    protected int commentsCount;
+    private String id;
+    private String imageUrl;
+    private String title;
+    private int likesCount;
+    private int commentsCount;
 
     public Post(@Nonnull WebElement rootElement) {
         super(rootElement);
-    }
-
-    public static String getPostIdFromUrl(String url) {
-        String postId = ParserUtil.getStringBetween(url, "/p/", "/");
-        if (!isValidPostId(postId)) {
-            throw new IllegalArgumentException("Unable to extract post ID from URL: " + url);
-        }
-        return postId;
-    }
-
-    public static boolean isValidPostId(String postId) {
-        if (postId == null || postId.length() != 11) {
-            return false;
-        } else if (postId.contains("/")) {
-            return false;
-        }
-        // TODO: add more checks
-        return true;
     }
 
     public static List<String> getTagsFromTitle(String title) {
@@ -56,4 +38,40 @@ public class Post extends InstagramElement {
         }
         return tags;
     }
+
+    public static String getTruncatedTitle(String title) {
+        return getTruncatedTitle(title, 10);
+    }
+
+    public static String getTruncatedTitle(String title, int maximumLength) {
+        if (title.length() <= maximumLength) {
+            return title;
+        }
+        return title.substring(0, maximumLength) + "[...]";
+    }
+
+    /*
+        Getter & Setter
+     */
+
+    public String getId() {
+        return id;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public int getLikesCount() {
+        return likesCount;
+    }
+
+    public int getCommentsCount() {
+        return commentsCount;
+    }
+
 }

@@ -1,8 +1,6 @@
 package net.steppschuh.instabots.utils;
 
-/**
- * Created by Steppschuh on 07.02.18.
- */
+
 public class ParserUtil {
 
     public static String getStringAfter(String originalString, String subString) {
