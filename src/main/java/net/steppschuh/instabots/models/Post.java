@@ -1,9 +1,12 @@
 package net.steppschuh.instabots.models;
 
-import net.steppschuh.instabots.pages.PostPage;
+import net.steppschuh.instabots.pages.InstagramPage;
+import net.steppschuh.instabots.utils.ParserUtil;
 import net.steppschuh.markdowngenerator.text.TextBuilder;
 
 public class Post {
+
+    private static final String POST_BY_ID_URL = InstagramPage.HOME_URL + "p/";
 
     /**
      * The ID of the post, as included in the URL to the post.
@@ -66,17 +69,17 @@ public class Post {
     public String toDetailedString() {
         TextBuilder textBuilder = new TextBuilder()
                 .append("Post by ").append(user.getId())
-                .newLine()
+                .append(" with ")
                 .append(likesCount).append(" likes, ")
                 .append(commentsCount).append(" comments")
                 .newLine()
-                .append(PostPage.getPostUrl(id));
+                .append(getUrl(id));
 
         return textBuilder.toString();
     }
 
     public static String getTruncatedTitle(String title) {
-        return getTruncatedTitle(title, 10);
+        return getTruncatedTitle(title, 30);
     }
 
     public static String getTruncatedTitle(String title, int maximumLength) {
@@ -84,6 +87,28 @@ public class Post {
             return title;
         }
         return title.substring(0, maximumLength) + "[...]";
+    }
+
+    public static String getUrl(String postId) {
+        return POST_BY_ID_URL + postId + "/";
+    }
+
+    public static String getIdFromUrl(String url) {
+        String postId = ParserUtil.getStringBetween(url, "/p/", "/");
+        if (!isValidId(postId)) {
+            throw new IllegalArgumentException("Unable to extract post ID from URL: " + url);
+        }
+        return postId;
+    }
+
+    public static boolean isValidId(String postId) {
+        if (postId == null || postId.length() != 11) {
+            return false;
+        } else if (postId.contains("/")) {
+            return false;
+        }
+        // TODO: add more checks
+        return true;
     }
 
     /*

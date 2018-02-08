@@ -1,31 +1,28 @@
 package net.steppschuh.instabots.elements;
 
 import net.steppschuh.instabots.models.Post;
-import net.steppschuh.instabots.pages.PostPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import javax.annotation.Nonnull;
 
-public class PostPreviewElement extends InstagramElement {
+public abstract class PostPreviewElement extends InstagramElement {
 
-    protected String postId;
-    protected String imageUrl;
-    protected String title;
-    private int likesCount;
-    private int commentsCount;
+    protected Post post = new Post();
 
     public PostPreviewElement(@Nonnull WebElement rootElement) {
         super(rootElement);
 
-        postId = parsePostId();
-        imageUrl = parseImageUrl();
-        title = parseTitle();
+        post.setId(parsePostId());
+        post.setImageUrl(parseImageUrl());
+        post.setTitle(parseTitle());
+        post.setLikesCount(parseLikesCount());
+        post.setCommentsCount(parseCommentsCount());
     }
 
     protected String parsePostId() {
         WebElement postAnchorElement = rootElement.findElement(By.tagName("a"));
-        return PostPage.getPostIdFromUrl(postAnchorElement.getAttribute("href"));
+        return Post.getIdFromUrl(postAnchorElement.getAttribute("href"));
     }
 
     protected String parseImageUrl() {
@@ -48,7 +45,15 @@ public class PostPreviewElement extends InstagramElement {
 
     @Override
     public String toString() {
-        return "PostElement " + postId + ": " + Post.getTruncatedTitle(title);
+        return post.toString();
+    }
+
+    /*
+        Getter & Setter
+    */
+
+    public Post getPost() {
+        return post;
     }
 
 }

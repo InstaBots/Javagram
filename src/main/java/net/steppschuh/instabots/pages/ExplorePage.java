@@ -1,6 +1,8 @@
 package net.steppschuh.instabots.pages;
 
 import net.steppschuh.instabots.elements.ExplorePostPreviewElement;
+import net.steppschuh.instabots.elements.PostPreviewElement;
+import net.steppschuh.instabots.models.Post;
 import net.steppschuh.markdowngenerator.list.UnorderedList;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -18,8 +20,8 @@ public class ExplorePage extends InstagramPage {
     private String tag;
     private int totalPostsCount;
 
-    private List<ExplorePostPreviewElement> topPosts = new ArrayList<>();
-    private List<ExplorePostPreviewElement> recentPosts = new ArrayList<>();
+    private List<Post> topPosts = new ArrayList<>();
+    private List<Post> recentPosts = new ArrayList<>();
 
     public ExplorePage(@Nonnull ChromeDriver chromeDriver, @Nonnull String tag) {
         super(chromeDriver);
@@ -38,9 +40,9 @@ public class ExplorePage extends InstagramPage {
         WebElement topPostsContainer = chromeDriver.findElement(
                 By.xpath("//*[@id=\"react-root\"]/section/main/article/div[1]/div/div")
         );
-        topPosts = getExplorePostPreviews(topPostsContainer);
+        topPosts = getPosts(getExplorePostPreviews(topPostsContainer));
         LOGGER.finer("Found " + topPosts.size() + " top posts");
-        UnorderedList<ExplorePostPreviewElement> topPostsList = new UnorderedList<>(topPosts);
+        UnorderedList<Post> topPostsList = new UnorderedList<>(topPosts);
         LOGGER.finest(topPostsList.toString());
     }
 
@@ -48,13 +50,13 @@ public class ExplorePage extends InstagramPage {
         WebElement recentPostsContainer = chromeDriver.findElement(
                 By.xpath("//*[@id=\"react-root\"]/section/main/article/div[2]/div")
         );
-        recentPosts = getExplorePostPreviews(recentPostsContainer);
+        recentPosts = getPosts(getExplorePostPreviews(recentPostsContainer));
         LOGGER.finer("Found " + recentPosts.size() + " recent posts");
-        UnorderedList<ExplorePostPreviewElement> recentPostsList = new UnorderedList<>(recentPosts);
+        UnorderedList<Post> recentPostsList = new UnorderedList<>(recentPosts);
         LOGGER.finest(recentPostsList.toString());
     }
 
-    private List<ExplorePostPreviewElement> getExplorePostPreviews(WebElement container) {
+    private static List<ExplorePostPreviewElement> getExplorePostPreviews(WebElement container) {
         List<ExplorePostPreviewElement> postPreviews = new ArrayList<>();
         List<WebElement> rowContainers = container.findElements(By.xpath("./div"));
         for (WebElement rowContainer : rowContainers) {
@@ -62,6 +64,14 @@ public class ExplorePage extends InstagramPage {
             postPreviews.addAll(postContainers.stream().map(ExplorePostPreviewElement::new).collect(Collectors.toList()));
         }
         return postPreviews;
+    }
+
+    private static List<Post> getPosts(List<? extends PostPreviewElement> postPreviewElements) {
+        List<Post> posts = new ArrayList<>();
+        for (PostPreviewElement postPreviewElement : postPreviewElements) {
+            posts.add(postPreviewElement.getPost());
+        }
+        return posts;
     }
 
     public void loadMoreRecentPosts() {
@@ -84,11 +94,11 @@ public class ExplorePage extends InstagramPage {
         return totalPostsCount;
     }
 
-    public List<ExplorePostPreviewElement> getTopPosts() {
+    public List<Post> getTopPosts() {
         return topPosts;
     }
 
-    public List<ExplorePostPreviewElement> getRecentPosts() {
+    public List<Post> getRecentPosts() {
         return recentPosts;
     }
 
