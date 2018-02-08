@@ -1,5 +1,6 @@
 package net.steppschuh.instabots.elements;
 
+import net.steppschuh.instabots.models.Tags;
 import net.steppschuh.instabots.pages.PostPage;
 import org.junit.Test;
 
@@ -12,7 +13,7 @@ import static org.junit.Assert.*;
 /**
  * Created by Steppschuh on 07.02.18.
  */
-public class PostTest {
+public class PostElementTest {
 
     @Test
     public void getPostIdFromUrl_validUrl_correctId() throws Exception {
@@ -53,7 +54,7 @@ public class PostTest {
                 "photography",
                 "fotorgaffdiyarim"
         );
-        List<String> actualTags = Post.getTagsFromTitle(title);
+        List<String> actualTags = Tags.getTagsFromTitle(title);
 
         actualTags.forEach(System.out::println);
 
@@ -64,7 +65,7 @@ public class PostTest {
     public void getTagsFromTitle_invalidTitle_noTags() throws Exception {
         String title = "";
         List<String> expectedTags = new ArrayList<>();
-        List<String> actualTags = Post.getTagsFromTitle(title);
+        List<String> actualTags = Tags.getTagsFromTitle(title);
         assertArrayEquals(expectedTags.toArray(), actualTags.toArray());
     }
 

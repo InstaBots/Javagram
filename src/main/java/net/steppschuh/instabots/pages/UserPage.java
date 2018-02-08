@@ -1,6 +1,7 @@
 package net.steppschuh.instabots.pages;
 
-import net.steppschuh.instabots.elements.UserPostPreview;
+import net.steppschuh.instabots.elements.UserPostPreviewElement;
+import net.steppschuh.instabots.models.User;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import javax.annotation.Nonnull;
@@ -9,15 +10,13 @@ import java.util.List;
 
 public class UserPage extends InstagramPage {
 
-    private String userId;
-    private String userName;
-    private int postsCount;
-    private int followersCount;
+    private User user = new User();
 
-    private List<UserPostPreview> recentPosts = new ArrayList<>();
+    private List<UserPostPreviewElement> recentPosts = new ArrayList<>();
 
-    public UserPage(@Nonnull ChromeDriver chromeDriver) {
+    public UserPage(@Nonnull ChromeDriver chromeDriver, String userId) {
         super(chromeDriver);
+        user.setId(userId);
     }
 
     @Override
@@ -29,23 +28,11 @@ public class UserPage extends InstagramPage {
         Getter & Setter
      */
 
-    public String getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public int getPostsCount() {
-        return postsCount;
-    }
-
-    public int getFollowersCount() {
-        return followersCount;
-    }
-
-    public List<UserPostPreview> getRecentPosts() {
+    public List<UserPostPreviewElement> getRecentPosts() {
         return recentPosts;
     }
 

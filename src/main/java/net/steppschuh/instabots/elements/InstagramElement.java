@@ -4,7 +4,7 @@ import org.openqa.selenium.WebElement;
 
 import javax.annotation.Nonnull;
 
-public class InstagramElement {
+public abstract class InstagramElement {
 
     protected WebElement rootElement;
 

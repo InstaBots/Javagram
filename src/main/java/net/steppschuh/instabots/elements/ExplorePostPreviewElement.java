@@ -4,9 +4,9 @@ import org.openqa.selenium.WebElement;
 
 import javax.annotation.Nonnull;
 
-public class UserPostPreview extends PostPreview {
+public class ExplorePostPreviewElement extends PostPreviewElement {
 
-    public UserPostPreview(@Nonnull WebElement rootElement) {
+    public ExplorePostPreviewElement(@Nonnull WebElement rootElement) {
         super(rootElement);
     }
 

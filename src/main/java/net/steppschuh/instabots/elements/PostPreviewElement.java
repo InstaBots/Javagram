@@ -1,12 +1,13 @@
 package net.steppschuh.instabots.elements;
 
+import net.steppschuh.instabots.models.Post;
 import net.steppschuh.instabots.pages.PostPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import javax.annotation.Nonnull;
 
-public class PostPreview extends InstagramElement {
+public class PostPreviewElement extends InstagramElement {
 
     protected String postId;
     protected String imageUrl;
@@ -14,7 +15,7 @@ public class PostPreview extends InstagramElement {
     private int likesCount;
     private int commentsCount;
 
-    public PostPreview(@Nonnull WebElement rootElement) {
+    public PostPreviewElement(@Nonnull WebElement rootElement) {
         super(rootElement);
 
         postId = parsePostId();
@@ -47,7 +48,7 @@ public class PostPreview extends InstagramElement {
 
     @Override
     public String toString() {
-        return "Post " + postId + ": " + Post.getTruncatedTitle(title);
+        return "PostElement " + postId + ": " + Post.getTruncatedTitle(title);
     }
 
 }

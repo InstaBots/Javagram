@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 /**
  * Created by Steppschuh on 07.02.18.
  */
-public class ExplorePostPreviewTest {
+public class ExplorePostElementPreviewTest {
 
     @Test
     public void name() throws Exception {

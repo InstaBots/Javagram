@@ -1,6 +1,6 @@
 package net.steppschuh.instabots.pages;
 
-import net.steppschuh.instabots.elements.ExplorePostPreview;
+import net.steppschuh.instabots.elements.ExplorePostPreviewElement;
 import org.junit.Test;
 
 import java.util.List;
@@ -15,14 +15,14 @@ public class ExplorePageTest extends InstagramPageTest {
         ExplorePage explorePage = new ExplorePage(chromeDriver, "natgeo");
         explorePage.load();
 
-        List<ExplorePostPreview> topPosts = explorePage.getTopPosts();
+        List<ExplorePostPreviewElement> topPosts = explorePage.getTopPosts();
         assertEquals(9, topPosts.size());
 
-        for (ExplorePostPreview topPost : topPosts) {
+        for (ExplorePostPreviewElement topPost : topPosts) {
             System.out.println(topPost.toString());
         }
 
-        List<ExplorePostPreview> recentPosts = explorePage.getRecentPosts();
+        List<ExplorePostPreviewElement> recentPosts = explorePage.getRecentPosts();
         assertTrue(recentPosts.size() >= 9);
     }
 
