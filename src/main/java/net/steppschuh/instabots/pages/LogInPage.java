@@ -23,8 +23,13 @@ public class LogInPage extends InstagramPage {
     }
 
     @Override
+    public String getUrl() {
+        return LOG_IN_URL;
+    }
+
+    @Override
     public void load() {
-        chromeDriver.get(LOG_IN_URL);
+        super.load();
 
         userInput = chromeDriver.findElement(By.name("username"));
         passwordInput = chromeDriver.findElement(By.name("password"));

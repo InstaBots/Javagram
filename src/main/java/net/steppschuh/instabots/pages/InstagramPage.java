@@ -1,6 +1,8 @@
 package net.steppschuh.instabots.pages;
 
 import net.steppschuh.instabots.Javagram;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import javax.annotation.Nonnull;
@@ -19,7 +21,16 @@ public abstract class InstagramPage {
         this.chromeDriver = chromeDriver;
     }
 
-    public abstract void load();
+    public void load() {
+        chromeDriver.get(getUrl());
+
+        if (!chromeDriver.findElements(By.className("error-container")).isEmpty()) {
+            WebElement errorElement = chromeDriver.findElement(By.tagName("h2"));
+            throw new IllegalArgumentException(errorElement.getText());
+        }
+    }
+
+    public abstract String getUrl();
 
     public long getSuggestedTimeoutInSeconds() {
         return TimeUnit.MILLISECONDS.toSeconds(TIMEOUT_DURATION_DEFAULT);

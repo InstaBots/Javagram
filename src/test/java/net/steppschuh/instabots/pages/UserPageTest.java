@@ -7,18 +7,18 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class UserPageTest extends InstagramPageTest {
 
     @Test
-    public void load() {
+    public void load_natgeo() {
         UserPage userPage = new UserPage(chromeDriver, "natgeo");
         userPage.load();
 
-        System.out.println("User:\n");
         User user = userPage.getUser();
-        System.out.println(user.toDetailedString());
+        System.out.println("User:\n" + user.toDetailedString());
 
         assertEquals("natgeo", user.getId());
         assertEquals("National Geographic", user.getName());
@@ -38,14 +38,39 @@ public class UserPageTest extends InstagramPageTest {
     }
 
     @Test
+    public void load_javagram() {
+        UserPage userPage = new UserPage(chromeDriver, "javagram_tester");
+        userPage.load();
+
+        User user = userPage.getUser();
+        System.out.println("User:\n" + user.toDetailedString());
+
+        assertEquals("javagram_tester", user.getId());
+        assertEquals("Javagram", user.getName());
+        assertEquals(null, user.getDescription());
+        assertEquals(null, user.getWebsiteUrl());
+        assertFalse(user.hasWebsite());
+        assertFalse(user.isVerified());
+        assertEquals(0, user.getPostsCount());
+        assertTrue(user.getFollowersCount()  >= 0);
+        assertEquals(1, user.getFollowingCount());
+        assertEquals(0, userPage.getRecentPosts().size());
+    }
+
+    @Test
     public void parseCount_validString_correctCount() {
-        assertEquals(Post.COUNT_UNKNOWN, UserPage.parseCount(null));
-        assertEquals(Post.COUNT_UNKNOWN, UserPage.parseCount(""));
         assertEquals(123, UserPage.parseCount("123"));
-        assertEquals(1234, UserPage.parseCount("1,234"));
+        assertEquals(1230, UserPage.parseCount("1,230"));
         assertEquals(12300, UserPage.parseCount("12.3k"));
         assertEquals(123000, UserPage.parseCount("123k"));
         assertEquals(12300000, UserPage.parseCount("12.3m"));
         assertEquals(123000000, UserPage.parseCount("123m"));
     }
+
+    @Test
+    public void parseCount_invalidString_unknownValue() {
+        assertEquals(Post.COUNT_UNKNOWN, UserPage.parseCount(null));
+        assertEquals(Post.COUNT_UNKNOWN, UserPage.parseCount(""));
+    }
+
 }

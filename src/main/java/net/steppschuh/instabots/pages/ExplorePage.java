@@ -29,8 +29,13 @@ public class ExplorePage extends InstagramPage {
     }
 
     @Override
+    public String getUrl() {
+        return getExploreByTagUrl(tag);
+    }
+
+    @Override
     public void load() {
-        chromeDriver.get(getExploreByTagUrl(tag));
+        super.load();
 
         loadTopPosts();
         loadRecentPosts();

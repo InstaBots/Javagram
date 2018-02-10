@@ -27,8 +27,13 @@ public class UserPage extends InstagramPage {
     }
 
     @Override
+    public String getUrl() {
+        return user.getUrl();
+    }
+
+    @Override
     public void load() {
-        chromeDriver.get(user.getUrl());
+        super.load();
 
         loadUser();
         loadRecentPosts();
@@ -44,8 +49,10 @@ public class UserPage extends InstagramPage {
         user.setName(userNameElement.getText());
 
         // description
-        WebElement descriptionElement = descriptionContainerElement.findElement(By.xpath("./span/span"));
-        user.setDescription(descriptionElement.getText());
+        if (!descriptionContainerElement.findElements(By.xpath("./span/span")).isEmpty()) {
+            WebElement descriptionElement = descriptionContainerElement.findElement(By.xpath("./span/span"));
+            user.setDescription(descriptionElement.getText());
+        }
 
         // website
         if (!descriptionContainerElement.findElements(By.tagName("a")).isEmpty()) {
@@ -77,11 +84,12 @@ public class UserPage extends InstagramPage {
         user.setFollowingCount(parseCount(followingCountContainer.getText()));
     }
 
-    private void loadStats() {
-
-    }
-
     private void loadRecentPosts() {
+        if (!chromeDriver.findElements(By.xpath("//*[@id=\"react-root\"]/section/main/article/div/h2")).isEmpty()) {
+            LOGGER.finer("User has no posts yet");
+            return;
+        }
+
         WebElement recentPostsContainer = chromeDriver.findElement(
                 By.xpath("//*[@id=\"react-root\"]/section/main/article/div[1]/div")
         );
