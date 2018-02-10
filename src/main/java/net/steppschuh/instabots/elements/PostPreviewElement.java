@@ -21,7 +21,10 @@ public abstract class PostPreviewElement extends InstagramElement {
 
     public PostPreviewElement(InstagramPage page, WebElement rootElement) {
         super(page, rootElement);
+    }
 
+    @Override
+    protected void parse() {
         post.setId(parsePostId());
         post.setImageUrl(parseImageUrl());
         post.setTitle(parseTitle());

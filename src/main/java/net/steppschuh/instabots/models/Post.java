@@ -60,6 +60,9 @@ public class Post {
      */
     private long timestamp;
 
+    /**
+     * Type of the post. May be {@link Type#PHOTO}, {@link Type#GALLERY} or {@link Type#VIDEO}.
+     */
     private Type type;
 
     public Post() {

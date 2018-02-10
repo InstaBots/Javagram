@@ -18,7 +18,9 @@ public class PostPageTest extends InstagramPageTest {
 
         assertEquals(Post.Type.PHOTO, post.getType());
         assertEquals("Bd5ec0Hjds7", post.getId());
-        assertEquals("By @drewtrush // A red fox tries to stay warm as the temperature dips well below freezing. The red fox is the most widely distributed member of the fox family. #follow along with me @drewtrush to learn more about wildlife.\n" +
+        assertEquals("By @drewtrush // A red fox tries to stay warm as the temperature dips " +
+                "well below freezing. The red fox is the most widely distributed member of the fox family. " +
+                "#follow along with me @drewtrush to learn more about wildlife.\n" +
                 "______________________________________________\n\n#commonground", post.getTitle());
 
         assertTrue(post.getLikesCount() > 1174000);

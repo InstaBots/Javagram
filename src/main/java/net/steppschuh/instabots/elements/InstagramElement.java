@@ -12,12 +12,15 @@ public abstract class InstagramElement {
     protected WebElement rootElement;
 
     public InstagramElement(@Nonnull WebElement rootElement) {
-        this.rootElement = rootElement;
+        this(null, rootElement);
     }
 
     public InstagramElement(InstagramPage page, WebElement rootElement) {
         this.page = page;
         this.rootElement = rootElement;
+        parse();
     }
+
+    protected abstract void parse();
 
 }
