@@ -37,8 +37,13 @@ public class ExplorePage extends InstagramPage {
     public void load() {
         super.load();
 
-        loadTopPosts();
-        loadRecentPosts();
+        WebElement postCountElement = chromeDriver.findElement(By.xpath("//*[@id=\"react-root\"]/section/main/article/header/span/span"));
+        totalPostsCount = UserPage.parseCount(postCountElement.getText());
+
+        if (totalPostsCount > 0) {
+            loadTopPosts();
+            loadRecentPosts();
+        }
     }
 
     private void loadTopPosts() {

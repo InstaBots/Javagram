@@ -28,16 +28,20 @@ public class PostPage extends InstagramPage {
 
         WebElement postContainer = chromeDriver.findElement(By.xpath("//*[@id=\"react-root\"]/section/main/div/div/article"));
 
+        // image URL
         WebElement imageElement = postContainer.findElement(By.tagName("img"));
         post.setImageUrl(imageElement.getAttribute("src"));
 
+        // title
         WebElement titleContainer = postContainer.findElement(By.xpath("./div[2]/div[1]/ul/li[1]/span"));
         post.setTitle(titleContainer.getText());
 
+        // user ID
         WebElement headerElement = postContainer.findElement(By.tagName("header"));
         WebElement userIdElement = headerElement.findElement(By.xpath("./div[2]/div[1]/div[1]/a"));
         post.getUser().setId(userIdElement.getText());
 
+        // likes count
         WebElement likesCounterContainer = postContainer.findElement(By.xpath("./div[2]/section[2]/div"));
         WebElement likesCounterElement;
         if (!likesCounterContainer.findElements(By.tagName("a")).isEmpty()) {
@@ -46,7 +50,6 @@ public class PostPage extends InstagramPage {
             likesCounterElement = likesCounterContainer.findElement(By.xpath("./span/span"));
         }
         post.setLikesCount(UserPage.parseCount(likesCounterElement.getText()));
-
     }
 
     /*

@@ -22,6 +22,7 @@ public abstract class InstagramPage {
     }
 
     public void load() {
+        LOGGER.fine("Requesting: " + getUrl());
         chromeDriver.get(getUrl());
 
         if (!chromeDriver.findElements(By.className("error-container")).isEmpty()) {
