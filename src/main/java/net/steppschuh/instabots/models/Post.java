@@ -8,6 +8,8 @@ public class Post {
 
     private static final String POST_BY_ID_URL = InstagramPage.HOME_URL + "p/";
 
+    public static final int COUNT_UNKNOWN = -1;
+
     /**
      * The ID of the post, as included in the URL to the post.
      * Example: "Be7y9UYjz6j"
@@ -32,12 +34,12 @@ public class Post {
     /**
      * The total number of people that liked the post.
      */
-    private int likesCount;
+    private int likesCount = COUNT_UNKNOWN;
 
     /**
      * The total number of people that commented on the post.
      */
-    private int commentsCount;
+    private int commentsCount = COUNT_UNKNOWN;
 
     /**
      * The user that published the post.
@@ -57,6 +59,10 @@ public class Post {
     public Post() {
     }
 
+    public String getUrl() {
+        return getUrl(id);
+    }
+
     @Override
     public String toString() {
         return toCompactString();
@@ -68,12 +74,18 @@ public class Post {
 
     public String toDetailedString() {
         TextBuilder textBuilder = new TextBuilder()
-                .append("Post by ").append(user.getId())
-                .append(" with ")
-                .append(likesCount).append(" likes, ")
-                .append(commentsCount).append(" comments")
+                .append("Post by ").append(user);
+
+        if (likesCount != COUNT_UNKNOWN && commentsCount != COUNT_UNKNOWN) {
+            textBuilder.append(" with ")
+                    .append(likesCount).append(" likes, ")
+                    .append(commentsCount).append(" comments");
+        }
+
+        textBuilder.newLine()
+                .append(getTags().toString(5))
                 .newLine()
-                .append(getUrl(id));
+                .append(getUrl());
 
         return textBuilder.toString();
     }
@@ -140,6 +152,9 @@ public class Post {
     }
 
     public Tags getTags() {
+        if (tags == null || tags.isEmpty()) {
+            tags = Tags.from(title);
+        }
         return tags;
     }
 

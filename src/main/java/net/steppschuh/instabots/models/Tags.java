@@ -18,8 +18,34 @@ public class Tags extends ArrayList<String> {
         super(c);
     }
 
-    public Tags(@Nonnull String tags) {
-        this(getTagListFromString(tags));
+    @Override
+    public String toString() {
+        return toString(size());
+    }
+
+    public String toString(int maximumCount) {
+        StringBuilder stringBuilder = new StringBuilder()
+                .append(size())
+                .append(" tags");
+
+        if (isEmpty() || maximumCount < 1) {
+            return stringBuilder.toString();
+        } else {
+            if (maximumCount < size()) {
+                stringBuilder.append(", including: ");
+            } else {
+                stringBuilder.append(": ");
+            }
+            for (int tagIndex = 0; tagIndex < maximumCount && tagIndex < size(); tagIndex++) {
+                stringBuilder.append("#").append(get(tagIndex)).append(" ");
+            }
+            String tags = stringBuilder.toString();
+            return tags.substring(0, tags.length() - 1);
+        }
+    }
+
+    public static Tags from(@Nonnull String tags) {
+        return new Tags(getTagListFromString(tags));
     }
 
     public static List<String> getTagListFromString(String string) {

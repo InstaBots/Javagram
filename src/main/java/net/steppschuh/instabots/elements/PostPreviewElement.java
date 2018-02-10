@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class PostPreviewElement extends InstagramElement {
 
@@ -36,16 +38,24 @@ public abstract class PostPreviewElement extends InstagramElement {
     }
 
     protected int parseLikesCount() {
-        return 0; // TODO: parse if possible
+        return Post.COUNT_UNKNOWN; // TODO: parse if possible
     }
 
     protected int parseCommentsCount() {
-        return 0; // TODO: parse if possible
+        return Post.COUNT_UNKNOWN; // TODO: parse if possible
     }
 
     @Override
     public String toString() {
         return post.toString();
+    }
+
+    public static List<Post> getPosts(List<? extends PostPreviewElement> postPreviewElements) {
+        List<Post> posts = new ArrayList<>();
+        for (PostPreviewElement postPreviewElement : postPreviewElements) {
+            posts.add(postPreviewElement.getPost());
+        }
+        return posts;
     }
 
     /*

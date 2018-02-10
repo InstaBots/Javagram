@@ -40,20 +40,20 @@ public class ExplorePage extends InstagramPage {
         WebElement topPostsContainer = chromeDriver.findElement(
                 By.xpath("//*[@id=\"react-root\"]/section/main/article/div[1]/div/div")
         );
-        topPosts = getPosts(getExplorePostPreviews(topPostsContainer));
+        topPosts = PostPreviewElement.getPosts(getExplorePostPreviews(topPostsContainer));
         LOGGER.finer("Found " + topPosts.size() + " top posts");
         UnorderedList<Post> topPostsList = new UnorderedList<>(topPosts);
-        LOGGER.finest(topPostsList.toString());
+        LOGGER.finest("\n" + topPostsList.toString());
     }
 
     private void loadRecentPosts() {
         WebElement recentPostsContainer = chromeDriver.findElement(
                 By.xpath("//*[@id=\"react-root\"]/section/main/article/div[2]/div")
         );
-        recentPosts = getPosts(getExplorePostPreviews(recentPostsContainer));
+        recentPosts = PostPreviewElement.getPosts(getExplorePostPreviews(recentPostsContainer));
         LOGGER.finer("Found " + recentPosts.size() + " recent posts");
         UnorderedList<Post> recentPostsList = new UnorderedList<>(recentPosts);
-        LOGGER.finest(recentPostsList.toString());
+        LOGGER.finest("\n" + recentPostsList.toString());
     }
 
     private static List<ExplorePostPreviewElement> getExplorePostPreviews(WebElement container) {
@@ -64,14 +64,6 @@ public class ExplorePage extends InstagramPage {
             postPreviews.addAll(postContainers.stream().map(ExplorePostPreviewElement::new).collect(Collectors.toList()));
         }
         return postPreviews;
-    }
-
-    private static List<Post> getPosts(List<? extends PostPreviewElement> postPreviewElements) {
-        List<Post> posts = new ArrayList<>();
-        for (PostPreviewElement postPreviewElement : postPreviewElements) {
-            posts.add(postPreviewElement.getPost());
-        }
-        return posts;
     }
 
     public void loadMoreRecentPosts() {

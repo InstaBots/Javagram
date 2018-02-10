@@ -72,7 +72,7 @@ public class Javagram {
         }
     }
 
-    private void setupLogging() {
+    public void setupLogging() {
         LOGGER.setLevel(Level.FINEST);
         //Handler handler = new StreamHandler(System.out, new SimpleFormatter());
         Handler handler = new ConsoleHandler();
