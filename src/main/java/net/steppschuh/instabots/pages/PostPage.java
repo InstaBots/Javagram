@@ -7,6 +7,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import javax.annotation.Nonnull;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 public class PostPage extends InstagramPage {
 
@@ -27,6 +30,15 @@ public class PostPage extends InstagramPage {
         super.load();
 
         WebElement postContainer = chromeDriver.findElement(By.xpath("//*[@id=\"react-root\"]/section/main/div/div/article"));
+
+        // type
+        if (!postContainer.findElements(By.className("videoSpritePlayButton")).isEmpty()) {
+            post.setType(Post.Type.VIDEO);
+        } else if (!postContainer.findElements(By.className("coreSpriteRightChevron")).isEmpty()) {
+            post.setType(Post.Type.GALLERY);
+        } else {
+            post.setType(Post.Type.PHOTO);
+        }
 
         // image URL
         WebElement imageElement = postContainer.findElement(By.tagName("img"));
@@ -50,6 +62,11 @@ public class PostPage extends InstagramPage {
             likesCounterElement = likesCounterContainer.findElement(By.xpath("./span/span"));
         }
         post.setLikesCount(UserPage.parseCount(likesCounterElement.getText()));
+
+        // timestamp
+        WebElement timeElement = postContainer.findElement(By.tagName("time"));
+        Instant instant = Instant.parse(timeElement.getAttribute("datetime")); // YYYY-MM-DDThh:mm:ssTZD
+        post.setTimestamp(instant.toEpochMilli());
     }
 
     /*

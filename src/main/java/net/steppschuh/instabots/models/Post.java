@@ -6,6 +6,10 @@ import net.steppschuh.markdowngenerator.text.TextBuilder;
 
 public class Post {
 
+    public enum Type {
+        PHOTO, VIDEO, GALLERY
+    }
+
     private static final String POST_BY_ID_URL = InstagramPage.HOME_URL + "p/";
 
     public static final int COUNT_UNKNOWN = -1;
@@ -56,6 +60,8 @@ public class Post {
      */
     private long timestamp;
 
+    private Type type;
+
     public Post() {
     }
 
@@ -76,10 +82,9 @@ public class Post {
         TextBuilder textBuilder = new TextBuilder()
                 .append("Post by ").append(user);
 
-        if (likesCount != COUNT_UNKNOWN && commentsCount != COUNT_UNKNOWN) {
+        if (likesCount != COUNT_UNKNOWN) {
             textBuilder.append(" with ")
-                    .append(likesCount).append(" likes, ")
-                    .append(commentsCount).append(" comments");
+                    .append(likesCount).append(" likes");
         }
 
         textBuilder.newLine()
@@ -200,5 +205,13 @@ public class Post {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 }

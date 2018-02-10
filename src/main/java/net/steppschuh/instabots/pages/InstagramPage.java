@@ -37,4 +37,12 @@ public abstract class InstagramPage {
         return TimeUnit.MILLISECONDS.toSeconds(TIMEOUT_DURATION_DEFAULT);
     }
 
+    /*
+        Getter & Setter
+     */
+
+    public ChromeDriver getChromeDriver() {
+        return chromeDriver;
+    }
+
 }

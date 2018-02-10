@@ -1,5 +1,6 @@
 package net.steppschuh.instabots.pages;
 
+import net.steppschuh.instabots.elements.ExplorePostPreviewElement;
 import net.steppschuh.instabots.elements.PostPreviewElement;
 import net.steppschuh.instabots.elements.UserPostPreviewElement;
 import net.steppschuh.instabots.models.Post;
@@ -131,12 +132,14 @@ public class UserPage extends InstagramPage {
         }
     }
 
-    private static List<UserPostPreviewElement> getUserPostPreviews(WebElement container) {
+    private List<UserPostPreviewElement> getUserPostPreviews(WebElement container) {
         List<UserPostPreviewElement> postPreviews = new ArrayList<>();
         List<WebElement> rowContainers = container.findElements(By.xpath("./div"));
         for (WebElement rowContainer : rowContainers) {
             List<WebElement> postContainers = rowContainer.findElements(By.xpath("./div"));
-            postPreviews.addAll(postContainers.stream().map(UserPostPreviewElement::new).collect(Collectors.toList()));
+            for (WebElement postContainer : postContainers) {
+                postPreviews.add(new UserPostPreviewElement(this, postContainer));
+            }
         }
         return postPreviews;
     }

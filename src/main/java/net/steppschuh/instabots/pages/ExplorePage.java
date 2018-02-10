@@ -66,12 +66,14 @@ public class ExplorePage extends InstagramPage {
         LOGGER.finest("\n" + recentPostsList.toString());
     }
 
-    private static List<ExplorePostPreviewElement> getExplorePostPreviews(WebElement container) {
+    private List<ExplorePostPreviewElement> getExplorePostPreviews(WebElement container) {
         List<ExplorePostPreviewElement> postPreviews = new ArrayList<>();
         List<WebElement> rowContainers = container.findElements(By.xpath("./div"));
         for (WebElement rowContainer : rowContainers) {
             List<WebElement> postContainers = rowContainer.findElements(By.xpath("./div"));
-            postPreviews.addAll(postContainers.stream().map(ExplorePostPreviewElement::new).collect(Collectors.toList()));
+            for (WebElement postContainer : postContainers) {
+                postPreviews.add(new ExplorePostPreviewElement(this, postContainer));
+            }
         }
         return postPreviews;
     }

@@ -23,6 +23,8 @@ public class ExplorePageTest extends InstagramPageTest {
 
         for (Post topPost : topPosts) {
             System.out.println(topPost.toDetailedString() + "\n");
+            assertTrue(topPost.getLikesCount() > 0);
+            assertTrue(topPost.getCommentsCount() > 0);
         }
 
         List<Post> recentPosts = explorePage.getRecentPosts();
