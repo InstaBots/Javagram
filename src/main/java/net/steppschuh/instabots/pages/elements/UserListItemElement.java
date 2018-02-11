@@ -1,4 +1,4 @@
-package net.steppschuh.instabots.elements;
+package net.steppschuh.instabots.pages.elements;
 
 import net.steppschuh.instabots.models.User;
 import net.steppschuh.instabots.pages.InstagramPage;

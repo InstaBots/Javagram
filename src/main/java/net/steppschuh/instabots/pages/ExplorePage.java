@@ -1,7 +1,7 @@
 package net.steppschuh.instabots.pages;
 
-import net.steppschuh.instabots.elements.ExplorePostPreviewElement;
-import net.steppschuh.instabots.elements.PostPreviewElement;
+import net.steppschuh.instabots.pages.elements.ExplorePostPreviewElement;
+import net.steppschuh.instabots.pages.elements.PostPreviewElement;
 import net.steppschuh.instabots.models.Post;
 import net.steppschuh.markdowngenerator.list.UnorderedList;
 import org.openqa.selenium.By;

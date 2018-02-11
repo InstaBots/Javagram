@@ -1,7 +1,7 @@
 package net.steppschuh.instabots.pages;
 
-import net.steppschuh.instabots.elements.PostPreviewElement;
-import net.steppschuh.instabots.elements.UserPostPreviewElement;
+import net.steppschuh.instabots.pages.elements.PostPreviewElement;
+import net.steppschuh.instabots.pages.elements.UserPostPreviewElement;
 import net.steppschuh.instabots.models.Post;
 import net.steppschuh.instabots.models.User;
 import net.steppschuh.instabots.utils.ParserUtil;
