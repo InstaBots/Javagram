@@ -82,8 +82,15 @@ public class Post {
     }
 
     public String toDetailedString() {
-        TextBuilder textBuilder = new TextBuilder()
-                .append("Post by ").append(user);
+        TextBuilder textBuilder = new TextBuilder();
+
+        if (type != null) {
+            textBuilder.append(getReadableType(type));
+        } else {
+            textBuilder.append("Post");
+        }
+
+        textBuilder.append(" by ").append(user);
 
         if (likesCount != COUNT_UNKNOWN) {
             textBuilder.append(" with ")
@@ -129,6 +136,15 @@ public class Post {
         }
         // TODO: add more checks
         return true;
+    }
+
+    public static String getReadableType(Type type) {
+        switch (type) {
+            case PHOTO: return "Photo";
+            case GALLERY: return "Gallery";
+            case VIDEO: return "Video";
+            default: return type.toString();
+        }
     }
 
     /*

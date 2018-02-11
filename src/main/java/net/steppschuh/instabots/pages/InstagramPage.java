@@ -1,6 +1,7 @@
 package net.steppschuh.instabots.pages;
 
 import net.steppschuh.instabots.Javagram;
+import net.steppschuh.instabots.utils.WebElementUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -35,6 +36,10 @@ public abstract class InstagramPage {
 
     public long getSuggestedTimeoutInSeconds() {
         return TimeUnit.MILLISECONDS.toSeconds(TIMEOUT_DURATION_DEFAULT);
+    }
+
+    public boolean hasElement(@Nonnull By by) {
+        return WebElementUtil.hasElement(chromeDriver, by);
     }
 
     /*

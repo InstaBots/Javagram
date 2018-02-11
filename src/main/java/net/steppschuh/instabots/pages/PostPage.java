@@ -1,15 +1,13 @@
 package net.steppschuh.instabots.pages;
 
 import net.steppschuh.instabots.models.Post;
+import net.steppschuh.instabots.utils.WebElementUtil;
 import org.openqa.selenium.By;
-import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import javax.annotation.Nonnull;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 public class PostPage extends InstagramPage {
 
@@ -32,9 +30,9 @@ public class PostPage extends InstagramPage {
         WebElement postContainer = chromeDriver.findElement(By.xpath("//*[@id=\"react-root\"]/section/main/div/div/article"));
 
         // type
-        if (!postContainer.findElements(By.className("videoSpritePlayButton")).isEmpty()) {
+        if (WebElementUtil.hasElement(postContainer, By.className("videoSpritePlayButton"))) {
             post.setType(Post.Type.VIDEO);
-        } else if (!postContainer.findElements(By.className("coreSpriteRightChevron")).isEmpty()) {
+        } else if (WebElementUtil.hasElement(postContainer, By.className("coreSpriteRightChevron"))) {
             post.setType(Post.Type.GALLERY);
         } else {
             post.setType(Post.Type.PHOTO);
@@ -56,7 +54,7 @@ public class PostPage extends InstagramPage {
         // likes count
         WebElement likesCounterContainer = postContainer.findElement(By.xpath("./div[2]/section[2]/div"));
         WebElement likesCounterElement;
-        if (!likesCounterContainer.findElements(By.tagName("a")).isEmpty()) {
+        if (WebElementUtil.hasElement(likesCounterContainer, By.tagName("a"))) {
             likesCounterElement = likesCounterContainer.findElement(By.xpath("./a/span"));
         } else {
             likesCounterElement = likesCounterContainer.findElement(By.xpath("./span/span"));

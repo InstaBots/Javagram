@@ -1,11 +1,11 @@
 package net.steppschuh.instabots.pages;
 
-import net.steppschuh.instabots.elements.ExplorePostPreviewElement;
 import net.steppschuh.instabots.elements.PostPreviewElement;
 import net.steppschuh.instabots.elements.UserPostPreviewElement;
 import net.steppschuh.instabots.models.Post;
 import net.steppschuh.instabots.models.User;
 import net.steppschuh.instabots.utils.ParserUtil;
+import net.steppschuh.instabots.utils.WebElementUtil;
 import net.steppschuh.markdowngenerator.list.UnorderedList;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -14,7 +14,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class UserPage extends InstagramPage {
 
@@ -50,19 +49,20 @@ public class UserPage extends InstagramPage {
         user.setName(userNameElement.getText());
 
         // description
-        if (!descriptionContainerElement.findElements(By.xpath("./span/span")).isEmpty()) {
+
+        if (WebElementUtil.hasElement(descriptionContainerElement, By.xpath("./span/span"))) {
             WebElement descriptionElement = descriptionContainerElement.findElement(By.xpath("./span/span"));
             user.setDescription(descriptionElement.getText());
         }
 
         // website
-        if (!descriptionContainerElement.findElements(By.tagName("a")).isEmpty()) {
+        if (WebElementUtil.hasElement(descriptionContainerElement, By.tagName("a"))) {
             WebElement websiteElement = descriptionContainerElement.findElement(By.tagName("a"));
             user.setWebsiteUrl(websiteElement.getText());
         }
 
         // verified
-        user.setVerified(!headerElement.findElements(By.className("coreSpriteVerifiedBadge")).isEmpty());
+        user.setVerified(WebElementUtil.hasElement(headerElement, By.className("coreSpriteVerifiedBadge")));
 
         // stats
         WebElement statsContainer = headerElement.findElement(By.tagName("ul"));
@@ -74,7 +74,7 @@ public class UserPage extends InstagramPage {
         // followers & following count
         WebElement followersCountContainer;
         WebElement followingCountContainer;
-        if (!statsContainer.findElements(By.tagName("a")).isEmpty()) {
+        if (WebElementUtil.hasElement(statsContainer, By.tagName("a"))) {
             followersCountContainer = statsContainer.findElement(By.xpath("./li[2]/a/span"));
             followingCountContainer = statsContainer.findElement(By.xpath("./li[3]/a/span"));
         } else {
