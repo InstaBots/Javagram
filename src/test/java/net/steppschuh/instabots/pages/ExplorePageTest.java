@@ -7,6 +7,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class ExplorePageTest extends InstagramPageTest {
 
@@ -34,7 +35,12 @@ public class ExplorePageTest extends InstagramPageTest {
     @Test
     public void load_unknownTag_noPosts() throws Exception {
         ExplorePage explorePage = new ExplorePage(chromeDriver, "asdfkljhasdflkjhasdf");
-        explorePage.load();
+        try {
+            explorePage.load();
+            fail();
+        } catch (IllegalArgumentException e) {
+            // expected
+        }
 
         assertEquals(0, explorePage.getTotalPostsCount());
         assertEquals(0, explorePage.getTopPosts().size());
