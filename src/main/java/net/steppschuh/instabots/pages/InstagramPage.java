@@ -18,8 +18,8 @@ public abstract class InstagramPage {
 
     protected ChromeDriver chromeDriver;
 
-    public InstagramPage(@Nonnull ChromeDriver chromeDriver) {
-        this.chromeDriver = chromeDriver;
+    public InstagramPage() {
+        this.chromeDriver = Javagram.getChromeDriver();
     }
 
     public void load() {

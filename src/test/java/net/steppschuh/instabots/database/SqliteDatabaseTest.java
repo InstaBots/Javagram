@@ -6,25 +6,23 @@ import org.junit.Test;
 
 import java.sql.Connection;
 
-import static org.junit.Assert.*;
+public class SqliteDatabaseTest {
 
-public class DatabaseTest {
-
-    private Database database;
+    private SqliteDatabase sqliteDatabase;
 
     @Before
     public void setUp() throws Exception {
-        database = new Database();
+        sqliteDatabase = new SqliteDatabase();
     }
 
     @After
     public void tearDown() throws Exception {
-        database.getConnection().close();
+        sqliteDatabase.getConnection().close();
     }
 
     @Test
     public void connect() {
-        Connection connection = database.getConnection();
+        Connection connection = sqliteDatabase.getConnection();
     }
 
 }

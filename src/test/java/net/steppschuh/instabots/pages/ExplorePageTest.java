@@ -1,6 +1,7 @@
 package net.steppschuh.instabots.pages;
 
 import net.steppschuh.instabots.models.Post;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public class ExplorePageTest extends InstagramPageTest {
 
     @Test
     public void load_validTag_parsesPosts() throws Exception {
-        ExplorePage explorePage = new ExplorePage(chromeDriver, "natgeo");
+        ExplorePage explorePage = new ExplorePage("natgeo");
         explorePage.load();
 
         assertEquals("natgeo", explorePage.getTag());
@@ -34,7 +35,7 @@ public class ExplorePageTest extends InstagramPageTest {
 
     @Test
     public void load_unknownTag_noPosts() throws Exception {
-        ExplorePage explorePage = new ExplorePage(chromeDriver, "asdfkljhasdflkjhasdf");
+        ExplorePage explorePage = new ExplorePage("asdfkljhasdflkjhasdf");
         try {
             explorePage.load();
             fail();

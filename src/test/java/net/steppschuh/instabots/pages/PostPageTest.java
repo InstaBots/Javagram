@@ -10,7 +10,7 @@ public class PostPageTest extends InstagramPageTest {
 
     @Test
     public void load_photoPost_parsesPost() {
-        PostPage postPage = new PostPage(chromeDriver, "Bd5ec0Hjds7");
+        PostPage postPage = new PostPage("Bd5ec0Hjds7");
         postPage.load();
 
         Post post = postPage.getPost();
@@ -34,7 +34,7 @@ public class PostPageTest extends InstagramPageTest {
 
     @Test
     public void load_galleryPost_parsesPost() {
-        PostPage postPage = new PostPage(chromeDriver, "Be1QneAjanD");
+        PostPage postPage = new PostPage("Be1QneAjanD");
         postPage.load();
 
         Post post = postPage.getPost();
@@ -61,7 +61,7 @@ public class PostPageTest extends InstagramPageTest {
 
     @Test
     public void load_videoPost_parsesPost() {
-        PostPage postPage = new PostPage(chromeDriver, "Be_r-ZYDDv7");
+        PostPage postPage = new PostPage("Be_r-ZYDDv7");
         postPage.load();
 
         Post post = postPage.getPost();
@@ -95,7 +95,7 @@ public class PostPageTest extends InstagramPageTest {
 
     @Test
     public void load_nonExistingPost_throwsException() {
-        PostPage postPage = new PostPage(chromeDriver, "foobar");
+        PostPage postPage = new PostPage("foobar");
         try {
             postPage.load();
             fail("Expected exception not thrown");

@@ -13,8 +13,7 @@ public class PostPage extends InstagramPage {
 
     private Post post = new Post();
 
-    public PostPage(@Nonnull ChromeDriver chromeDriver, String postId) {
-        super(chromeDriver);
+    public PostPage(String postId) {
         post.setId(postId);
     }
 

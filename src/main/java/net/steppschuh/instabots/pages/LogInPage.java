@@ -18,8 +18,8 @@ public class LogInPage extends InstagramPage {
 
     private boolean loggedIn = false;
 
-    public LogInPage(@Nonnull ChromeDriver chromeDriver) {
-        super(chromeDriver);
+    public LogInPage() {
+        super();
     }
 
     @Override

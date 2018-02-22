@@ -14,7 +14,7 @@ public class UserPageTest extends InstagramPageTest {
 
     @Test
     public void load_natgeo() {
-        UserPage userPage = new UserPage(chromeDriver, "natgeo");
+        UserPage userPage = new UserPage("natgeo");
         userPage.load();
 
         User user = userPage.getUser();
@@ -39,7 +39,7 @@ public class UserPageTest extends InstagramPageTest {
 
     @Test
     public void load_javagram() {
-        UserPage userPage = new UserPage(chromeDriver, "javagram_tester");
+        UserPage userPage = new UserPage("javagram_tester");
         userPage.load();
 
         User user = userPage.getUser();

@@ -21,8 +21,8 @@ public class UserPage extends InstagramPage {
 
     private List<Post> recentPosts = new ArrayList<>();
 
-    public UserPage(@Nonnull ChromeDriver chromeDriver, String userId) {
-        super(chromeDriver);
+    public UserPage(String userId) {
+        super();
         user.setId(userId);
     }
 

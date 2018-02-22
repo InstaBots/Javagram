@@ -15,14 +15,10 @@ import static org.junit.Assert.*;
 
 public class InstagramPageTest {
 
-    protected static ChromeDriver chromeDriver;
-
     @BeforeClass
     public static void setUp() throws Exception {
-        WebDriverManager.chromedriver().setup();
-        chromeDriver = new ChromeDriver();
+        Javagram.getInstance();
 
-        Javagram.getInstance().setupLogging();
         for (Handler handler : Javagram.LOGGER.getHandlers()) {
             handler.setLevel(Level.WARNING);
         }
@@ -30,7 +26,7 @@ public class InstagramPageTest {
 
     @AfterClass
     public static void tearDown() throws Exception {
-        chromeDriver.quit();
+        Javagram.getChromeDriver().quit();
     }
 
 }

@@ -1,7 +1,10 @@
 package net.steppschuh.instabots;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import net.steppschuh.instabots.bots.Bot;
+import net.steppschuh.instabots.bots.PostLikingBot;
 import net.steppschuh.instabots.database.Database;
+import net.steppschuh.instabots.database.SqliteDatabase;
 import net.steppschuh.instabots.pages.ExplorePage;
 import net.steppschuh.instabots.pages.LogInPage;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -24,11 +27,13 @@ public class Javagram {
 
     private Properties properties;
     private Database database;
+    private ChromeDriver chromeDriver;
 
     private Javagram() {
         setupLogging();
         setupProperties();
-        database = new Database();
+        setupChromeDriver();
+        database = new SqliteDatabase();
     }
 
     public static Javagram getInstance() {
@@ -43,17 +48,15 @@ public class Javagram {
     }
 
     private void start() {
-        WebDriverManager.chromedriver().setup();
-        ChromeDriver chromeDriver = new ChromeDriver();
-
         try {
-            LogInPage logInPage = new LogInPage(chromeDriver);
+            LogInPage logInPage = new LogInPage();
             String user = properties.getProperty("INSTAGRAM_USER");
             String password = properties.getProperty("INSTAGRAM_PASSWORD");
             logInPage.logIn(user, password);
 
-            ExplorePage explorePage = new ExplorePage(chromeDriver, "natgeo");
-            explorePage.load();
+            Bot bot = new PostLikingBot();
+            bot.start();
+
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
@@ -66,8 +69,8 @@ public class Javagram {
         try {
             InputStream in = getClass().getClassLoader().getResourceAsStream(PROPERTIES_FILE_NAME);
             if (in == null) {
-                throw new IOException("Properties file not found at 'src/main/resources/"
-                        + PROPERTIES_FILE_NAME + "'. Please refer to the documentation.");
+                throw new IOException("Properties file not found at 'src/main/resources/" + PROPERTIES_FILE_NAME
+                        + "'.\nPlease refer to the documentation: https://github.com/InstaBots/Javagram");
             }
             properties.load(in);
         } catch (IOException e) {
@@ -75,13 +78,26 @@ public class Javagram {
         }
     }
 
-    public void setupLogging() {
+    private void setupLogging() {
         LOGGER.setLevel(Level.FINEST);
         //Handler handler = new StreamHandler(System.out, new SimpleFormatter());
         Handler handler = new ConsoleHandler();
         handler.setLevel(Level.FINEST);
         LOGGER.addHandler(handler);
         LOGGER.setUseParentHandlers(false);
+    }
+
+    private void setupChromeDriver() {
+        WebDriverManager.chromedriver().setup();
+        chromeDriver = new ChromeDriver();
+    }
+
+    public static Database getDatabase() {
+        return getInstance().database;
+    }
+
+    public static ChromeDriver getChromeDriver() {
+        return getInstance().chromeDriver;
     }
 
 }

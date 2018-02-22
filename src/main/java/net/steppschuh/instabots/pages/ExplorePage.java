@@ -22,8 +22,8 @@ public class ExplorePage extends InstagramPage {
     private List<Post> topPosts = new ArrayList<>();
     private List<Post> recentPosts = new ArrayList<>();
 
-    public ExplorePage(@Nonnull ChromeDriver chromeDriver, @Nonnull String tag) {
-        super(chromeDriver);
+    public ExplorePage(@Nonnull String tag) {
+        super();
         this.tag = tag;
     }
 
