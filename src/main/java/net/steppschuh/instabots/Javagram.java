@@ -1,6 +1,7 @@
 package net.steppschuh.instabots;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import net.steppschuh.instabots.database.Database;
 import net.steppschuh.instabots.pages.ExplorePage;
 import net.steppschuh.instabots.pages.LogInPage;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -22,10 +23,12 @@ public class Javagram {
     private static Javagram instance;
 
     private Properties properties;
+    private Database database;
 
     private Javagram() {
         setupLogging();
         setupProperties();
+        database = new Database();
     }
 
     public static Javagram getInstance() {

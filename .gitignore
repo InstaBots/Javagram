@@ -104,3 +104,4 @@ crashlytics-build.properties
 fabric.properties
 
 .DS_Store
+Javagram.db
