@@ -5,6 +5,8 @@ import net.steppschuh.instabots.utils.WebElementUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.annotation.Nonnull;
 import java.time.Instant;
@@ -12,6 +14,8 @@ import java.time.Instant;
 public class PostPage extends InstagramPage {
 
     private Post post = new Post();
+
+    private WebElement postContainer;
 
     public PostPage(String postId) {
         post.setId(postId);
@@ -26,7 +30,7 @@ public class PostPage extends InstagramPage {
     public void load() {
         super.load();
 
-        WebElement postContainer = chromeDriver.findElement(By.xpath("//*[@id=\"react-root\"]/section/main/div/div/article"));
+        postContainer = chromeDriver.findElement(By.xpath("//*[@id=\"react-root\"]/section/main/div/div/article"));
 
         // type
         if (WebElementUtil.hasElement(postContainer, By.className("videoSpritePlayButton"))) {
@@ -64,6 +68,38 @@ public class PostPage extends InstagramPage {
         WebElement timeElement = postContainer.findElement(By.tagName("time"));
         Instant instant = Instant.parse(timeElement.getAttribute("datetime")); // YYYY-MM-DDThh:mm:ssTZD
         post.setTimestamp(instant.toEpochMilli());
+    }
+
+    public boolean isLiked() {
+        return WebElementUtil.hasElement(postContainer, By.className("coreSpriteHeartFull"));
+    }
+
+    public void like() {
+        if (isLiked()) {
+            LOGGER.finest("Post already liked: " + post);
+            return;
+        }
+
+        LOGGER.finest("Liking post: " + post);
+        WebElement likeButton = postContainer.findElement(By.className("coreSpriteHeartOpen"));
+        likeButton.click();
+
+        WebDriverWait wait = new WebDriverWait(chromeDriver, 1);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("coreSpriteHeartFull")));
+    }
+
+    public void unlike() {
+        if (!isLiked()) {
+            LOGGER.finest("Post already unliked: " + post);
+            return;
+        }
+
+        LOGGER.finest("Unliking post: " + post);
+        WebElement likeButton = postContainer.findElement(By.className("coreSpriteHeartFull"));
+        likeButton.click();
+
+        WebDriverWait wait = new WebDriverWait(chromeDriver, 1);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("coreSpriteHeartOpen")));
     }
 
     /*

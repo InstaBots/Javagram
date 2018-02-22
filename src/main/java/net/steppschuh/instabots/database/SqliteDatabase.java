@@ -1,5 +1,6 @@
 package net.steppschuh.instabots.database;
 
+import net.steppschuh.instabots.Javagram;
 import net.steppschuh.instabots.actions.Action;
 
 import java.sql.*;
@@ -10,7 +11,7 @@ import java.util.logging.Logger;
 
 public class SqliteDatabase implements Database {
 
-    public static final Logger LOGGER = Logger.getLogger(SqliteDatabase.class.getName());
+    public static final Logger LOGGER = Javagram.LOGGER;
 
     private static final String DB_NAME = "javagram";
     private static final String DB_URL = "jdbc:sqlite:" + DB_NAME + ".db";

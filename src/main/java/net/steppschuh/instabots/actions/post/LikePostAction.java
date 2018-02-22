@@ -11,6 +11,8 @@ public class LikePostAction extends PostAction {
     @Override
     public void perform() {
         PostPage postPage = new PostPage(postId);
+        postPage.load();
+        postPage.like();
     }
 
 }

@@ -56,7 +56,6 @@ public class Javagram {
 
             Bot bot = new PostLikingBot();
             bot.start();
-
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }

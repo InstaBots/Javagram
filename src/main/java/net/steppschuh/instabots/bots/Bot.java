@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 public abstract class Bot {
 
-    public static final Logger LOGGER = Logger.getLogger(Bot.class.getName());
+    public static final Logger LOGGER = Javagram.LOGGER;
 
     protected ChromeDriver chromeDriver;
     protected boolean isRunning;
