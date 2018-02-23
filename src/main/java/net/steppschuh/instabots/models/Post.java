@@ -129,7 +129,7 @@ public class Post {
     }
 
     public static boolean isValidId(String postId) {
-        if (postId == null || postId.length() != 11) {
+        if (postId == null || postId.length() < 10 || postId.length() > 11) {
             return false;
         } else if (postId.contains("/")) {
             return false;

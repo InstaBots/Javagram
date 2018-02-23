@@ -32,7 +32,7 @@ public class Javagram {
     private Javagram() {
         setupLogging();
         setupProperties();
-        setupChromeDriver();
+        chromeDriver = createChromeDriver();
         database = new SqliteDatabase();
     }
 
@@ -90,17 +90,21 @@ public class Javagram {
         LOGGER.setUseParentHandlers(false);
     }
 
-    private void setupChromeDriver() {
-        WebDriverManager.chromedriver().setup();
-        chromeDriver = new ChromeDriver();
-    }
-
     public static Database getDatabase() {
         return getInstance().database;
     }
 
+    private ChromeDriver createChromeDriver() {
+        WebDriverManager.chromedriver().setup();
+        return new ChromeDriver();
+    }
+
     public static ChromeDriver getChromeDriver() {
-        return getInstance().chromeDriver;
+        Javagram instance = getInstance();
+        if (instance.chromeDriver == null || instance.chromeDriver.getSessionId() == null) {
+            instance.chromeDriver = instance.createChromeDriver();
+        }
+        return instance.chromeDriver;
     }
 
 }

@@ -13,19 +13,6 @@ public class LikePostActionTest extends ActionTest {
 
     private static String POST_ID = "BTd1vTaALy4";
 
-    @Before
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-    }
-
-    @After
-    @Override
-    public void tearDown() throws Exception {
-        unlikePost();
-        super.tearDown();
-    }
-
     private void unlikePost() {
         UnlikePostAction unlikePostAction = new UnlikePostAction(POST_ID);
         unlikePostAction.perform();
@@ -49,6 +36,8 @@ public class LikePostActionTest extends ActionTest {
 
         postPage.load();
         int newLikesCount = postPage.getPost().getLikesCount();
+
+        unlikePost();
 
         assertEquals(previousLikesCount + 1, newLikesCount);
     }
