@@ -49,10 +49,7 @@ public class Javagram {
 
     private void start() {
         try {
-            LogInPage logInPage = new LogInPage();
-            String user = properties.getProperty("INSTAGRAM_USER");
-            String password = properties.getProperty("INSTAGRAM_PASSWORD");
-            logInPage.logIn(user, password);
+            logIn();
 
             Bot bot = new PostLikingBot();
             bot.start();
@@ -61,6 +58,13 @@ public class Javagram {
         }
 
         chromeDriver.quit();
+    }
+
+    public void logIn() {
+        LogInPage logInPage = new LogInPage();
+        String user = properties.getProperty("INSTAGRAM_USER");
+        String password = properties.getProperty("INSTAGRAM_PASSWORD");
+        logInPage.logIn(user, password);
     }
 
     private void setupProperties() {
