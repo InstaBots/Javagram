@@ -1,7 +1,7 @@
 package net.steppschuh.instabots.utils;
 
 
-public class ParserUtil {
+public final class ParserUtil {
 
     public static String getStringAfter(String originalString, String subString) {
         int index = originalString.indexOf(subString);

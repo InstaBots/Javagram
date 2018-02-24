@@ -3,6 +3,7 @@ package net.steppschuh.instabots.pages;
 import net.steppschuh.instabots.pages.elements.ExplorePostPreviewElement;
 import net.steppschuh.instabots.pages.elements.PostPreviewElement;
 import net.steppschuh.instabots.models.Post;
+import net.steppschuh.instabots.utils.SleepUtil;
 import net.steppschuh.markdowngenerator.list.UnorderedList;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -42,15 +43,11 @@ public class ExplorePage extends InstagramPage {
         totalPostsCount = UserPage.parseCount(postCountElement.getText());
 
         if (totalPostsCount > 0) {
-            // pre fetch posts 10 times
-            for (int i = 0; i < 10; i++) {
+            // pre fetch posts 5 times
+            for (int i = 0; i < 5; i++) {
                 chromeDriver.executeScript("scroll(0, 100000);");
                 // TODO: find a better way to wait until new content has been loaded
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                SleepUtil.sleep(500, TimeUnit.MILLISECONDS);
             }
 
             loadTopPosts();

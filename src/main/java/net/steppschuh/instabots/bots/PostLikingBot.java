@@ -6,6 +6,7 @@ import net.steppschuh.instabots.filter.post.LikesCountFilter;
 import net.steppschuh.instabots.models.Post;
 import net.steppschuh.instabots.models.Tags;
 import net.steppschuh.instabots.pages.ExplorePage;
+import net.steppschuh.instabots.utils.SleepUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,15 +29,12 @@ public class PostLikingBot extends Bot {
                 "wildlifephotography"
         ));
 
-        try {
-            while (true) {
-                for (String tag : tags) {
-                    likeRecentPosts(tag);
-                    Thread.sleep((int) (Math.random() * TimeUnit.SECONDS.toMillis(30)));
-                }
+        while (true) {
+            for (String tag : tags) {
+                likeRecentPosts(tag);
+                SleepUtil.sleep(5, 10, TimeUnit.SECONDS);
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            SleepUtil.sleep(30, 60, TimeUnit.SECONDS);
         }
     }
 
@@ -68,6 +66,7 @@ public class PostLikingBot extends Bot {
 
         for (LikePostAction likePostAction : likePostActions) {
             //likePostAction.perform();
+            SleepUtil.sleep(2, 5, TimeUnit.SECONDS);
             LOGGER.info("Simulated like for post: " + likePostAction.getPostId());
         }
     }
