@@ -1,6 +1,5 @@
 package net.steppschuh.instabots.bots;
 
-import javafx.geometry.Pos;
 import net.steppschuh.instabots.actions.post.LikePostAction;
 import net.steppschuh.instabots.filter.CompositeFilter;
 import net.steppschuh.instabots.filter.post.LikesCountFilter;
@@ -13,8 +12,10 @@ import net.steppschuh.instabots.utils.SleepUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 
 public class PostLikingBot extends Bot {
 
@@ -25,15 +26,23 @@ public class PostLikingBot extends Bot {
     @Override
     protected void onStart() {
         Tags tags = new Tags(Arrays.asList(
-                "photography",
-                "travelphotography",
-                "landscapephotography",
-                "naturephotography",
-                "wildlifephotography"
+                "portraitphotography",
+                "top_portraits",
+                "portrait_ig",
+                "discoverportrait",
+                "earth_portraits",
+                "portraitpage",
+                "pursuitofportraits",
+                "portraiture",
+                "portraitshoot",
+                "makeportraitsmag",
+                "agameofportraits",
+                "postthepeople"
         ));
 
         while (true) {
             for (String tag : tags) {
+                LOGGER.info("Liking posts for tag: " + tag);
                 likeRecentPosts(tag);
                 SleepUtil.sleep(5, 10, TimeUnit.SECONDS);
             }
@@ -66,28 +75,35 @@ public class PostLikingBot extends Bot {
             likePostActions.add(likePostAction);
         }
 
+        // reverse to process oldest posts first
+        Collections.reverse(likePostActions);
+
         // filter the posts
         CompositeFilter<Post> filter = new CompositeFilter<>(CompositeFilter.Mode.ALL, Arrays.asList(
-                new LikesCountFilter(LikesCountFilter.Mode.MINIMUM, 5), // should have more than 5 likes
-                new LikesCountFilter(LikesCountFilter.Mode.MAXIMUM, 100), // should have less than 100 likes
+                new LikesCountFilter(LikesCountFilter.Mode.MINIMUM, 3), // should have more than 3 likes
+                new LikesCountFilter(LikesCountFilter.Mode.MAXIMUM, 50), // should have less than 50 likes
                 new RecencyFilter(RecencyFilter.Mode.BEFORE, 1, TimeUnit.MINUTES), // should be at least 1 minute old
                 new RecencyFilter(RecencyFilter.Mode.AFTER, 1, TimeUnit.DAYS) // should not be older than 1 day
         ));
 
         for (LikePostAction likePostAction : likePostActions) {
-            PostPage postPage = new PostPage(likePostAction.getPostId());
-            postPage.load();
-            Post post = postPage.getPost();
+            try {
+                PostPage postPage = new PostPage(likePostAction.getPostId());
+                postPage.load();
+                Post post = postPage.getPost();
 
-            SleepUtil.sleep(2, 5, TimeUnit.SECONDS);
+                SleepUtil.sleep(2, 5, TimeUnit.SECONDS);
 
-            if (!filter.matches(post)) {
-                LOGGER.finest("Filter didn't match post: " + post.toDetailedString());
-                continue;
+                if (!filter.matches(post)) {
+                    LOGGER.finest("Filter didn't match post: " + post.toDetailedString());
+                    continue;
+                }
+
+                postPage.like();
+                //LOGGER.info("Simulated like for post: " + post.toDetailedString());
+            } catch (Exception e) {
+                LOGGER.log(Level.WARNING, "Unable to process post: " + likePostAction.getPostId());
             }
-
-            //postPage.like();
-            LOGGER.info("Simulated like for post: " + post.toDetailedString());
         }
     }
 
