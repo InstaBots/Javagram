@@ -6,9 +6,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class UserPageTest extends InstagramPageTest {
 
@@ -52,7 +50,7 @@ public class UserPageTest extends InstagramPageTest {
         assertFalse(user.hasWebsite());
         assertFalse(user.isVerified());
         assertEquals(0, user.getPostsCount());
-        assertTrue(user.getFollowersCount()  >= 0);
+        assertTrue(user.getFollowersCount() >= 0);
         assertEquals(1, user.getFollowingCount());
         assertEquals(0, userPage.getRecentPosts().size());
     }

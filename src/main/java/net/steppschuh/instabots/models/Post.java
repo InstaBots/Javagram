@@ -140,10 +140,14 @@ public class Post {
 
     public static String getReadableType(Type type) {
         switch (type) {
-            case PHOTO: return "Photo";
-            case GALLERY: return "Gallery";
-            case VIDEO: return "Video";
-            default: return type.toString();
+            case PHOTO:
+                return "Photo";
+            case GALLERY:
+                return "Gallery";
+            case VIDEO:
+                return "Video";
+            default:
+                return type.toString();
         }
     }
 

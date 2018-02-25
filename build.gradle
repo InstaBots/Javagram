@@ -21,7 +21,6 @@ dependencies {
     // database
     compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.8.11.2'
 
-
     // miscellaneous
     compile group: 'net.steppschuh.markdowngenerator', name: 'markdowngenerator', version: '1.3.0.0'
     

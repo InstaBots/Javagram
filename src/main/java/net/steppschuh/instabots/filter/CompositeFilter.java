@@ -32,8 +32,10 @@ public class CompositeFilter<T> extends AbstractFilter<T> {
     @Override
     public boolean matches(T item) {
         switch (mode) {
-            case ALL: return matchesAll(item);
-            case ANY: return matchesAny(item);
+            case ALL:
+                return matchesAll(item);
+            case ANY:
+                return matchesAny(item);
         }
         throw new RuntimeException("Unable to evaluate matches using mode: " + mode);
     }

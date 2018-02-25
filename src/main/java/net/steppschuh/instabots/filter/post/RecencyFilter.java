@@ -30,8 +30,10 @@ public class RecencyFilter extends AbstractFilter<Post> {
             return false;
         }
         switch (mode) {
-            case BEFORE: return post.getTimestamp() < timestamp;
-            case AFTER: return post.getTimestamp() > timestamp;
+            case BEFORE:
+                return post.getTimestamp() < timestamp;
+            case AFTER:
+                return post.getTimestamp() > timestamp;
         }
         throw new RuntimeException("Unable to evaluate matches using mode: " + mode);
     }

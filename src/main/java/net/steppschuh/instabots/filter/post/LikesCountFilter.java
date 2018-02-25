@@ -23,8 +23,10 @@ public class LikesCountFilter extends AbstractFilter<Post> {
             return false;
         }
         switch (mode) {
-            case MINIMUM: return post.getLikesCount() >= count;
-            case MAXIMUM: return post.getLikesCount() <= count;
+            case MINIMUM:
+                return post.getLikesCount() >= count;
+            case MAXIMUM:
+                return post.getLikesCount() <= count;
         }
         throw new RuntimeException("Unable to evaluate matches using mode: " + mode);
     }

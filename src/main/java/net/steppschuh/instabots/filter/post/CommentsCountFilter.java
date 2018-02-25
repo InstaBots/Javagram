@@ -23,8 +23,10 @@ public class CommentsCountFilter extends AbstractFilter<Post> {
             return false;
         }
         switch (mode) {
-            case MINIMUM: return post.getCommentsCount() >= count;
-            case MAXIMUM: return post.getCommentsCount() <= count;
+            case MINIMUM:
+                return post.getCommentsCount() >= count;
+            case MAXIMUM:
+                return post.getCommentsCount() <= count;
         }
         throw new RuntimeException("Unable to evaluate matches using mode: " + mode);
     }

@@ -1,17 +1,15 @@
 package net.steppschuh.instabots.pages;
 
-import net.steppschuh.instabots.pages.elements.PostPreviewElement;
-import net.steppschuh.instabots.pages.elements.UserPostPreviewElement;
 import net.steppschuh.instabots.models.Post;
 import net.steppschuh.instabots.models.User;
+import net.steppschuh.instabots.pages.elements.PostPreviewElement;
+import net.steppschuh.instabots.pages.elements.UserPostPreviewElement;
 import net.steppschuh.instabots.utils.ParserUtil;
 import net.steppschuh.instabots.utils.WebElementUtil;
 import net.steppschuh.markdowngenerator.list.UnorderedList;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 

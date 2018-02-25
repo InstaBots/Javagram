@@ -5,7 +5,6 @@ import net.steppschuh.instabots.bots.Bot;
 import net.steppschuh.instabots.bots.PostLikingBot;
 import net.steppschuh.instabots.database.Database;
 import net.steppschuh.instabots.database.SqliteDatabase;
-import net.steppschuh.instabots.pages.ExplorePage;
 import net.steppschuh.instabots.pages.LogInPage;
 import org.openqa.selenium.chrome.ChromeDriver;
 

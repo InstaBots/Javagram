@@ -23,7 +23,7 @@ public class PostPageTest extends InstagramPageTest {
                 "#follow along with me @drewtrush to learn more about wildlife.\n" +
                 "______________________________________________\n\n#commonground", post.getTitle());
 
-        assertTrue(post.getLikesCount() > 1174000);
+        assertTrue(post.getLikesCount() > 1170000);
         assertTrue(post.getImageUrl().contains(".jpg"));
         assertEquals(2, post.getTags().size());
         assertEquals(1515864568000L, post.getTimestamp()); // 13/1/18

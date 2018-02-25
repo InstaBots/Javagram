@@ -3,8 +3,6 @@ package net.steppschuh.instabots.actions.post;
 import net.steppschuh.instabots.Javagram;
 import net.steppschuh.instabots.actions.ActionTest;
 import net.steppschuh.instabots.pages.PostPage;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

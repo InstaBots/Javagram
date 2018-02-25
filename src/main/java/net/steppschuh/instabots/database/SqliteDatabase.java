@@ -3,7 +3,10 @@ package net.steppschuh.instabots.database;
 import net.steppschuh.instabots.Javagram;
 import net.steppschuh.instabots.actions.Action;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
