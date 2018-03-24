@@ -25,6 +25,7 @@ public class RecentPostsLikingBot extends Bot {
 
     @Override
     protected void onStart() {
+        /*
         Tags tags = new Tags(Arrays.asList(
                 "portraitphotography",
                 "top_portraits",
@@ -38,6 +39,22 @@ public class RecentPostsLikingBot extends Bot {
                 "makeportraitsmag",
                 "agameofportraits",
                 "postthepeople"
+        ));
+        */
+
+        Tags tags = new Tags(Arrays.asList(
+                "miniaturepoodle",
+                "poodle",
+                "poodlemix",
+                "poodlesofinstagram",
+                "furbaby",
+                "dog",
+                "dogsofinstagram",
+                "puppy",
+                "puppiesofinstagram",
+                "petphotography",
+                "dogphotography",
+                "animalphotography"
         ));
 
         Collections.shuffle(tags);
