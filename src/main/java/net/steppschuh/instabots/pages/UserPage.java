@@ -15,13 +15,19 @@ import java.util.List;
 
 public class UserPage extends InstagramPage {
 
-    private User user = new User();
+    private User user;
 
     private List<Post> recentPosts = new ArrayList<>();
 
     public UserPage(String userId) {
         super();
+        user = new User();
         user.setId(userId);
+    }
+
+    public UserPage(User user) {
+        super();
+        this.user = user;
     }
 
     @Override

@@ -2,7 +2,7 @@ package net.steppschuh.instabots;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import net.steppschuh.instabots.bots.Bot;
-import net.steppschuh.instabots.bots.PostLikingBot;
+import net.steppschuh.instabots.bots.RecentPostsLikingBot;
 import net.steppschuh.instabots.database.Database;
 import net.steppschuh.instabots.database.SqliteDatabase;
 import net.steppschuh.instabots.pages.LogInPage;
@@ -50,7 +50,7 @@ public class Javagram {
         try {
             logIn();
 
-            Bot bot = new PostLikingBot();
+            Bot bot = new RecentPostsLikingBot();
             bot.start();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);

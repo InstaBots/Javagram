@@ -105,3 +105,4 @@ fabric.properties
 
 .DS_Store
 Javagram.db
+src/main/resources/javagram-tester.properties

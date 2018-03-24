@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
-public class PostLikingBot extends Bot {
+public class RecentPostsLikingBot extends Bot {
 
-    public PostLikingBot() {
+    public RecentPostsLikingBot() {
         super();
     }
 
@@ -39,6 +39,8 @@ public class PostLikingBot extends Bot {
                 "agameofportraits",
                 "postthepeople"
         ));
+
+        Collections.shuffle(tags);
 
         while (true) {
             for (String tag : tags) {
@@ -100,6 +102,10 @@ public class PostLikingBot extends Bot {
                 }
 
                 postPage.like();
+
+                UserPostsLikingBot userPostsLikingBot = new UserPostsLikingBot(post.getUser());
+                userPostsLikingBot.start();
+
                 //LOGGER.info("Simulated like for post: " + post.toDetailedString());
             } catch (Exception e) {
                 LOGGER.log(Level.WARNING, "Unable to process post: " + likePostAction.getPostId());

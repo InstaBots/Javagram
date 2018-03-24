@@ -21,8 +21,8 @@ public abstract class Bot {
             return;
         }
         LOGGER.fine("Starting bot: " + this);
-        onStart();
         isRunning = true;
+        onStart();
     }
 
     protected abstract void onStart();
@@ -32,8 +32,8 @@ public abstract class Bot {
             return;
         }
         LOGGER.fine("Stopping bot: " + this);
-        onStop();
         isRunning = false;
+        onStop();
     }
 
     protected abstract void onStop();

@@ -10,6 +10,8 @@ public class User {
 
     private static final String USER_BY_ID_URL = InstagramPage.HOME_URL;
 
+    public static final int COUNT_UNKNOWN = -1;
+
     /**
      * The ID of the user, as included in the URL to the profile.
      * Example: "natgeo"
@@ -41,17 +43,17 @@ public class User {
     /**
      * The total number of posts published by the user.
      */
-    private int postsCount;
+    private int postsCount = COUNT_UNKNOWN;
 
     /**
      * The total number of people that follow the user.
      */
-    private int followersCount;
+    private int followersCount = COUNT_UNKNOWN;
 
     /**
      * The total number of people that the user is following.
      */
-    private int followingCount;
+    private int followingCount = COUNT_UNKNOWN;
 
     /**
      * Indicator if the user has been verified (blue badge behind the user ID).
